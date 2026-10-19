@@ -66,6 +66,7 @@ void tearDown(void)
 
 void test_full(void)
 {
+    //put 32 messages, each with data.input 1-32, into the queue
     printf("Sending messages\n");
     for (int i = 0; i < 32; i++) {
         struct request_msg data = {};
@@ -73,6 +74,7 @@ void test_full(void)
         xQueueSendToBack(request, &data, portMAX_DELAY);
     }
 
+    //wait to recieve those 32 messages, make sure they are in the correct order and the calculations add 5 to each
     for (int i = 0; i < 32; i++) {
         struct request_msg data = {};
         BaseType_t res = xQueueReceive(response, &data, 1000);
@@ -101,7 +103,7 @@ void test_nothing(void)
     struct request_msg data = {42, -1, 0};
     xQueueSendToBack(request, &data, portMAX_DELAY);
     xQueueReceive(response, &data, portMAX_DELAY);
-    TEST_ASSERT_EQUAL_INT(data.input, 42);
+    TEST_ASSERT_EQUAL_INT(data.input, 42);//
     TEST_ASSERT_EQUAL_INT(data.input + 5, data.output);
     TEST_ASSERT_EQUAL_INT(pdFALSE, xQueueReceive(response, &data, 1000));
 }
