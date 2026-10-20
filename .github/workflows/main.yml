@@ -52,7 +52,7 @@ jobs:
         working-directory: ${{github.workspace}}
         shell: bash
         # Make sure to set the correct elf file
-        run: cmake --build ./build --target flash_test_signal
+        run: cmake --build ./build --target openocd_test_signal
 
       - name: Test Signal
         working-directory: ${{github.workspace}}
@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{github.workspace}}
         shell: bash
         # Make sure to set the correct elf file
-        run: cmake --build ./build --target flash_test_fifo
+        run: cmake --build ./build --target openocd_test_fifo
 
       - name: Test FIFO
         working-directory: ${{github.workspace}}
